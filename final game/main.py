@@ -24,6 +24,7 @@
 # Game loop
 # - update game, redraw
 
+# tank you sor
 
 import tkinter as tk
 from tkinter import messagebox
