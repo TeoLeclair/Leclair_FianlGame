@@ -55,8 +55,8 @@ This project is licensed under the [MIT] License - see the LICENSE.md file for d
 
 Inspiration, code snippets, etc.
 * source: 
- python library
  Cozort
  Joseph
  Chris Bradfield
- ChatGPT
+ replit https://docs.replit.com/tutorials/python/build-card-game-pygame
+ code review https://codereview.stackexchange.com/questions/217109/card-game-using-pygame-module
