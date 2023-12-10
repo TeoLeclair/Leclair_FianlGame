@@ -9,7 +9,7 @@ class Suits(Enum):
   HEART = 2
   DIAMOND = 3
 
-  class Card:
+class Card:
   suits = None
   value = None
   image = None
@@ -19,7 +19,7 @@ class Suits(Enum):
     self.value = value
     self.image = pygame.image.load('images/' + self.suit.name + '-' + str(self.value) + '.svg')
 
-    class Deck:
+class Deck:
   cards = None
 
   def __init__(self):
