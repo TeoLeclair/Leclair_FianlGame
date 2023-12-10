@@ -37,6 +37,7 @@ pygame.display.set_caption("Rummy")
 import settings 
 import random
 class Rummy:
+    
 
     def create_deck():
         suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
