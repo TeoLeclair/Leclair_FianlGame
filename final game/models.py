@@ -36,3 +36,30 @@ class Deck:
 
   def length(self):
     return len(self.cards)
+  
+class Pile:
+  cards = None
+
+  def __init__(self):
+    self.cards = []
+
+  def add(self, card):
+    self.cards.append(card)
+
+  def peek(self):
+    if (len(self.cards) > 0):
+      return self.cards[-1]
+    else:
+      return None
+
+  def popAll(self):
+    return self.cards
+
+  def clear(self):
+    self.cards = []
+
+  def isSnap(self):
+    if (len(self.cards) > 1):
+      return (self.cards[-1].value == self.cards[-2].value)
+    return False
+  
