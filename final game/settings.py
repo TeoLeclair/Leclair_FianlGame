@@ -1,21 +1,34 @@
 # game settings
-from enum import Enum
 import pygame
-from models import *
-
-class GameState(Enum):
-  PLAYING = 0
-  SNAPPING = 1
-  ENDED = 2
-
-class SnapEngine:
-  deck = None
-  player1 = None
-  player2 = None
-  pile = None
-  state = None
-  currentPlayer = None
-  result = None
-  
+from models import Deck, Player, Card
+ 
+class RummyEngine:
+  def __init__(self):
+    self.deck = Deck()
+    self.deck.shuffle()
+    self.player_1 = Player("Player 1")
+    self.player_2 = Player("Player 2")
+    self.deal()
+    self.currentPlayer = self.player_1
+    self.game_over = False
+ 
+  def deal(self):
+    for i in range(7):
+      self.player_1.draw_card(self.deck)
+      self.player_2.draw_card(self.deck)
+ 
+  def switch_player(self):
+    if self.currentPlayer == self.player1:
+      self.currentPlayer = self.player2
+    else:
+      self.currentPlayer = self.player1
+ 
+  # TODO
+  def play(self, key):
+    if key == None:
+      return
+ 
+    if self.state == GameState.ENDED:
+      return
     
 
