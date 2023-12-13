@@ -2,11 +2,6 @@ from enum import Enum #Enum for enumerations (which we'll use for defining the c
 import pygame #pygame, to load up the card images.
 import random#random, to use when we shuffle the deck.
  
-class Suits(Enum):
-  CLUB = 0
-  SPADE = 1
-  HEART = 2
-  DIAMOND = 3
  
 class Card:
   def __init__(self, suit, value):
@@ -19,7 +14,7 @@ class Card:
 class Deck:
   def __init__(self):
     self.cards = []
-    for suit in Suits:
+    for suit in ['CLUB', 'DIAMOND', 'SPADE', 'HEART']:
       for value in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']:
         self.cards.append(Card(suit, value))
  
