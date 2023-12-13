@@ -2,7 +2,6 @@ from enum import Enum #Enum for enumerations (which we'll use for defining the c
 import pygame #pygame, to load up the card images.
 import random#random, to use when we shuffle the deck.
  
- 
 class Suits(Enum):
   CLUB = 0
   SPADE = 1
@@ -15,7 +14,7 @@ class Card:
     self.value = value
     points_table = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':15, 'Q':15, 'K':15, 'A':15}
     self.points = points_table[value]
-    self.image = pygame.image.load('images/' + self.suit.name + '-' + str(self.value) + '.svg')
+    self.image = pygame.image.load('images/' + str(self.suit) + '-' + str(self.value) + '.svg')
  
 class Deck:
   def __init__(self):
@@ -47,14 +46,12 @@ class Player:
     else:
       return None
  
-    def print_hand(self):
+  def print_hand(self):
       for card in self.hand:
         print(f"{card.value} of {card.suit.name}")
  
-    def calculate_hand_score(self):
+  def calculate_hand_score(self):
       """Calculates and returns the score of the hand."""
-      # Score calculation can be complex in Gin Rummy and depends on forming melds.
-      # This function can be expanded based on the specific scoring rules you want to implement.
       # Placeholder for score calculation logic
       score = 0
       for card in self.hand:

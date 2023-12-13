@@ -18,17 +18,16 @@ class RummyEngine:
       self.player_2.draw_card(self.deck)
  
   def switch_player(self):
-    if self.currentPlayer == self.player1:
-      self.currentPlayer = self.player2
+    if self.currentPlayer == self.player_1:
+      self.currentPlayer = self.player_2
     else:
-      self.currentPlayer = self.player1
+      self.currentPlayer = self.player_1
  
   # TODO
   def play(self, key):
     if key == None:
-      return
- 
-    if self.state == GameState.ENDED:
+     return
+    if self.game_over:
       return
     
 

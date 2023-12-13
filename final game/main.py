@@ -33,56 +33,93 @@
 import random
 import os
 import pygame
-from models import *
-from settings import *
+from models import *  # calling code from models
+from settings import * #calling code from settings 
+# Initializing the Rummy game engine
 gameEngine = RummyEngine()
- 
+# Initializing Pygame
+pygame.init()
+
+# folder paths
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'images')
-pygame.init()
+
+# Setting up window dimensions
 bounds = (1024, 768)
 window = pygame.display.set_mode(bounds)
 pygame.display.set_caption("Rummy")
+
+# uploading back of card image and building measurments
 cardBack = pygame.image.load(os.path.join(img_folder, 'BACK.png')).convert()
-cardBack = pygame.transform.scale(cardBack, (int(238*0.8), int(332*0.8)))
- 
+cardBack = pygame.transform.scale(cardBack, (int(238 * 0.8), int(332 * 0.8)))
+smallCard = pygame.transform.scale(cardBack, (int(238 * 0.3), int(332 * 0.3)))
+
+my_king = Card("SPADE", "K")
+
+def my_cards():
+    window.blit(smallCard, (100, 650))
+    window.blit(smallCard, (200, 650))
+    my_king.draw(window)
+
+def computer_cards():
+    window.blit(cardBack, (700, 200))
+def current_card():
+    window.blit(cardBack, (100, 200))
+
+
 def render_game(window):
-  window.fill((15,0,169))
-  font = pygame.font.SysFont('comicsans',60, True)
- 
-  window.blit(cardBack, (100, 200))
-  window.blit(cardBack, (700, 200))
- 
-  text = font.render(str(len(gameEngine.player_1.hand)) + " cards", True, (255,255,255))
-  window.blit(text, (100, 500))
- 
-  text = font.render(str(len(gameEngine.player_2.hand)) + " cards", True, (255,255,255))
-  window.blit(text, (700, 500))
- 
-  if gameEngine.game_over:
-    p1_score = gameEngine.player_1.calculate_hand_score()
-    p2_score = gameEngine.player_2.calculate_hand_score()
-    # TODO calculate melds? idk
-    if p1_score > p2_score:
-      winner = "player 1"
+    # Rendering the game window
+    window.fill((34, 139, 34))  # Background color
+
+    # Setting up font for text rendering
+    font = pygame.font.SysFont('comicsans', 60, True)
+
+    # where cards sit on board
+    # current_card()
+    # computer_cards()
+    my_cards()
+
+    # number of cards for each player
+    text = font.render(str(len(gameEngine.player_1.hand)) + " cards", True, (255, 255, 255))
+    window.blit(text, (100, 500))
+    text = font.render(str(len(gameEngine.player_2.hand)) + " cards", True, (255, 255, 255))
+    window.blit(text, (700, 500))
+
+    if gameEngine.game_over:
+        # If the game is over, display the winner and game over message
+        p1_score = gameEngine.player_1.calculate_hand_score()
+        p2_score = gameEngine.player_2.calculate_hand_score()
+
+        # TODO: Calculate melds and decide the winner based on scores
+        if p1_score > p2_score:
+            winner = "player 1"
+        else:
+            winner = "player 2"
+
+        message = "Game Over! " + winner + " wins!"
+        text = font.render(message, True, (255, 255, 255))
+        window.blit(text, (20, 50))
     else:
-      winner = "player 2"
-    message = "Game Over! " + winner + " wins!"
-    text = font.render(message, True, (255,255,255))
-    window.blit(text, (20,50))
-  else:
-    return 0
-    # TODO: rest of game logic
- 
- 
+        return 0
+        # TODO: 
+
+# Main game loop
 run = True
 while run:
-  key = None
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      run = False
-    if event.type == pygame.KEYDOWN:
-      key = event.key
-  gameEngine.play(key)
-  render_game(window)
-  pygame.display.update()
+    key = None
+
+    # Pygame events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.KEYDOWN:
+            key = event.key
+
+    # Calling the play method of the game engine with the pressed key
+    gameEngine.play(key)
+
+    # Rendering the game window
+    render_game(window)
+
+    # Updating the display
+    pygame.display.update()
