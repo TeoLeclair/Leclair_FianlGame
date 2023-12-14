@@ -4,6 +4,7 @@ import random#random, to use when we shuffle the deck.
  
  
 class Card:
+  # Initializing a card with suit, value, points, and loading its image
   def __init__(self, suit, value):
     self.suit = suit
     self.value = value
