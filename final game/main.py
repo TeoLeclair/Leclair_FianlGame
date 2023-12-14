@@ -55,31 +55,26 @@ cardBack = pygame.transform.scale(cardBack, (int(238 * 0.8), int(332 * 0.8)))
 smallCard = pygame.transform.scale(cardBack, (int(238 * 0.3), int(332 * 0.3)))
  
  
-def my_cards():
-    window.blit(smallCard, (100, 650))
-    window.blit(smallCard, (200, 650))
-    my_king = Card("SPADE", "K")
+def display_hand(hand, x_start, y, window):
+    scale_factor = 0.5 
+    card_spacing = 40 
  
-    my_king_image = pygame.transform.scale(my_king.image, (int(238 * 0.3), int(332 * 0.3)))
-    window.blit(my_king_image, (300, 650))
- 
-def computer_cards():
-    window.blit(cardBack, (700, 200))
-def current_card():
-    window.blit(cardBack, (100, 200))
+    for i, card in enumerate(hand):
+        card_image = pygame.transform.scale(card.image, (int(238 * scale_factor), int(332 * scale_factor)))
+        window.blit(card_image, (x_start + i * card_spacing, y)) # offset 
  
  
 def render_game(window):
-    # Rendering the game window
     window.fill((34, 139, 34))  # Background color
  
-    # Setting up font for text rendering
     font = pygame.font.SysFont('comicsans', 60, True)
  
-    # where cards sit on board
-    # current_card()
-    # computer_cards()
-    my_cards()
+    # Display player 1's hand at the bottom of the screen
+    display_hand(gameEngine.player_1.hand, 45, 650, window)
+ 
+    # Display player 2's hand (or the back of the cards if you want to hide them)
+    display_hand(gameEngine.player_2.hand, 600, 650, window)
+ 
  
     # number of cards for each player
     text = font.render(str(len(gameEngine.player_1.hand)) + " cards", True, (255, 255, 255))
