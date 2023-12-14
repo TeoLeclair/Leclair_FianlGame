@@ -33,7 +33,7 @@ class Player:
     self.name = name
     self.hand = []
     self.melds = []
- 
+    self.hand_card_rects = []
   def draw_card(self, deck): # Draws a card from the deck and adds it to the player's hand
     if deck.length() > 0:
       card = deck.deal()

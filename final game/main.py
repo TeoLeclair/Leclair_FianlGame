@@ -55,13 +55,15 @@ cardBack = pygame.transform.scale(cardBack, (int(238 * 0.8), int(332 * 0.8)))
 smallCard = pygame.transform.scale(cardBack, (int(238 * 0.3), int(332 * 0.3)))
  
  
-def display_hand(hand, x_start, y, window):
-    scale_factor = 0.5 
-    card_spacing = 40 
- 
-    for i, card in enumerate(hand):
-        card_image = pygame.transform.scale(card.image, (int(238 * scale_factor), int(332 * scale_factor)))
-        window.blit(card_image, (x_start + i * card_spacing, y)) # offset 
+def display_hand(hand, x_start, y, window, scale_factor=0.5, card_spacing=40):
+   card_rects = []
+   for i, card in enumerate(hand):
+       card_width, card_height = int(238 * scale_factor), int(332 * scale_factor)
+       card_image = pygame.transform.scale(card.image, (card_width, card_height))
+       card_pos = (x_start + i * card_spacing, y)
+       window.blit(card_image, card_pos)
+       card_rects.append(pygame.Rect(card_pos, (card_width, card_height)))
+   return card_rects 
  
  
 def render_game(window):
@@ -99,6 +101,12 @@ def render_game(window):
     else:
         return 0
         # TODO: 
+
+def get_clicked_card(x, y, card_rects, cards):
+   for rect, card in zip(card_rects, cards):
+    if rect.collidepoint(x, y):
+        return card
+   return None
  
 # Main game loop
 run = True
@@ -107,9 +115,14 @@ while run:
  
     # Pygame events
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+             if event.button == 1:  # Left mouse click
+                 mouse_x, mouse_y = event.pos
+                 clicked_card = get_clicked_card(mouse_x, mouse_y, gameEngine.player_1.hand_card_rects, gameEngine.player_1.hand)
+    if get_clicked_card:
+               print("Clicked card:", get_clicked_card)
+               # Handle the clicked card here
+    if event.type == pygame.KEYDOWN:
             key = event.key
  
     # Calling the play method of the game engine with the pressed key
