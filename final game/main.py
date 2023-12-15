@@ -76,6 +76,8 @@ def render_game(window):
  
     # Display player 2's hand (or the back of the cards if you want to hide them)
     display_hand(gameEngine.player_2.hand, 600, 650, window)
+
+    display_deck(window)
  
  
     # number of cards for each player
@@ -107,6 +109,11 @@ def get_clicked_card(x, y, card_rects, cards):
     if rect.collidepoint(x, y):
         return card
    return None
+
+def display_deck(window):
+    card_pos = (700,100)
+    window.blit(cardBack, card_pos)
+
  
 # Main game loop
 run = True
@@ -119,9 +126,10 @@ while run:
              if event.button == 1:  # Left mouse click
                  mouse_x, mouse_y = event.pos
                  clicked_card = get_clicked_card(mouse_x, mouse_y, gameEngine.player_1.hand_card_rects, gameEngine.player_1.hand)
-    if get_clicked_card:
-               print("Clicked card:", get_clicked_card)
-               # Handle the clicked card here
+                 if get_clicked_card:
+                    print("Clicked card:", get_clicked_card)
+                                # Handle the clicked card here
+    
     if event.type == pygame.KEYDOWN:
             key = event.key
  
