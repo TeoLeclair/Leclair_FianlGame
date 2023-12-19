@@ -8,8 +8,10 @@ class Card:
   def __init__(self, suit, value):
     self.suit = suit
     self.value = value
-    points_table = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':15, 'Q':15, 'K':15, 'A':15}
-    self.points = points_table[value]
+    points_table = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':11, 'Q':12, 'K':13, 'A':14}
+    #dictionary of values
+    self.points = points_table[value] #map each value to an integer
+    self.name = str(self.value) + ' of ' + str(self.suit) #Ex. 5 of hearts
     self.image = pygame.image.load('images/' + str(self.suit) + '-' + str(self.value) + '.svg')
  
 class Deck:
@@ -17,7 +19,7 @@ class Deck:
     self.cards = []
     for suit in ['CLUB', 'DIAMOND', 'SPADE', 'HEART']:
       for value in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']:
-        self.cards.append(Card(suit, value))
+        self.cards.append(Card(suit, value)) #?
  
   def shuffle(self):
     random.shuffle(self.cards)
@@ -26,14 +28,16 @@ class Deck:
     return self.cards.pop()
  
   def length(self):
-    return len(self.cards)
+    return len(self.cards)#?
  
 class Player:
   def __init__(self, name):
     self.name = name
-    self.hand = []
+    self.hand = [] #empty lists
     self.melds = []
-    self.hand_card_rects = []
+    self.rects = []
+    self.last_three_clicked_cards = [] 
+ 
   def draw_card(self, deck): # Draws a card from the deck and adds it to the player's hand
     if deck.length() > 0:
       card = deck.deal()
@@ -47,8 +51,6 @@ class Player:
         print(f"{card.value} of {card.suit.name}")
  
   def calculate_hand_score(self):
-      """Calculates and returns the score of the hand."""
-      # Placeholder for score calculation logic
       score = 0
       for card in self.hand:
         score += card.points
